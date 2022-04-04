@@ -288,10 +288,18 @@ async function checkBalance() {
   const contract = new window.web3.eth.Contract(ERC20_ABI, ERC20_ADDRESS)
   const account = (await window.web3.eth.getAccounts())[0]
   const balance = await contract.methods.balanceOf(account).call()
-  document.getElementById('balance').innerHTML = balance
+  var currentdate = new Date(); 
+  var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+  document.getElementById('balance').innerHTML = `The balance is <b>${balance} SCC</b>. Last updated at ${datetime}`
 }
 
 async function transfer() {
+  document.getElementById('balance').innerHTML = ''
   const recipient = document.getElementById('recipient').value;
   const amount = document.getElementById('amount').value;
   const account = (await window.web3.eth.getAccounts())[0]
